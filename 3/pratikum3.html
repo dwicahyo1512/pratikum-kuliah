@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil &amp; Portofolio - Muhamad Dwi Cahyo</title>
+    <!-- Menautkan stylesheet eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ======================================================================
+         1. DOKUMEN SEMANTIK: <header> DENGAN FLEXBOX
+         Implementasi Flexbox untuk menyeimbangkan judul dan identitas mahasiswa
+         ====================================================================== -->
+    <header>
+        <div class="header-container">
+            <div class="header-title">
+                <h1>Muhamad Dwi Cahyo</h1>
+                <p>Mahasiswa Teknik Informatika &bull; Pemrograman Web</p>
+            </div>
+            <div class="header-badge">
+                <div class="badge-label">NIM &amp; Kelas</div>
+                <div class="badge-val">202569040042 &mdash; TI 3C</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         2. DOKUMEN SEMANTIK: <nav> DENGAN FLEXBOX
+         Implementasi Flexbox untuk menu navigasi yang rapi, terpusat, dan responsif
+         ====================================================================== -->
+    <nav aria-label="Navigasi Utama">
+        <div class="nav-container">
+            <ul>
+                <li><a href="#profil">Profil Diri</a></li>
+                <li><a href="#pendidikan">Riwayat Pendidikan</a></li>
+                <li><a href="#portofolio">Portofolio</a></li>
+                <li><a href="#keterampilan">Keterampilan</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ======================================================================
+         3. DOKUMEN SEMANTIK: <main> SEBAGAI KONTEN UTAMA
+         ====================================================================== -->
+    <main>
+        
+        <!-- SECTION: PROFIL DIRI -->
+        <section id="profil" class="section-box">
+            <h2 class="section-title">Profil Mahasiswa</h2>
+            <div class="profile-layout">
+                <div class="profile-photo">
+                    <img src="https://i.pravatar.cc/300?u=muhamaddwica" alt="Foto Profil Muhamad Dwi Cahyo" loading="lazy">
+                </div>
+                <div class="profile-details">
+                    <h3>Muhamad Dwi Cahyo</h3>
+                    <p class="profile-bio">
+                        Pengembang web dengan minat pada tata letak modern (Flexbox &amp; Grid), struktur semantik HTML5, serta pembuatan antarmuka responsif yang mudah diakses di berbagai perangkat.
+                    </p>
+                    <ul class="profile-meta">
+                        <li><strong>NIM:</strong> 202569040042</li>
+                        <li><strong>Program Studi:</strong> S1 Teknik Informatika</li>
+                        <li><strong>Kelas:</strong> TI 3C</li>
+                        <li><strong>Perguruan Tinggi:</strong> Universitas XYZ</li>
+                        <li><strong>Status:</strong> Mahasiswa Aktif</li>
+                        <li><strong>Tahun Masuk:</strong> 2024</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARTICLE 1: RIWAYAT PENDIDIKAN -->
+        <article id="pendidikan" class="section-box">
+            <h2 class="section-title">Riwayat Pendidikan</h2>
+            <div class="education-list">
+                <div class="edu-item">
+                    <h3>Universitas XYZ &mdash; S1 Teknik Informatika</h3>
+                    <p class="edu-meta">Periode: 2024 &ndash; Sekarang (Semester 3)</p>
+                    <p>Fokus pembelajaran: Pemrograman Web, Struktur Data, Rekayasa Perangkat Lunak, dan Basis Data.</p>
+                </div>
+                <div class="edu-item">
+                    <h3>SMK / SMA Negeri XYZ &mdash; Rekayasa Perangkat Lunak</h3>
+                    <p class="edu-meta">Periode: 2021 &ndash; 2024</p>
+                    <p>Mempelajari dasar logika komputasi, algoritma pemrograman, dan dasar web HTML/CSS.</p>
+                </div>
+            </div>
+        </article>
+
+        <!-- ARTICLE 2: DAFTAR PORTOFOLIO / ARTIKEL (CSS GRID DENGAN AUTO-FIT)
+             Kriteria: 
+             - Wajib menggunakan CSS Grid
+             - Minimal 4 kartu
+             - Mekanisme auto-fit: repeat(auto-fit, minmax(250px, 1fr)) -->
+        <article id="portofolio" class="section-box">
+            <h2 class="section-title">Portofolio Proyek</h2>
+            <p class="portfolio-intro">
+                Berikut adalah daftar proyek yang telah dikerjakan, mencakup pengembangan web responsif, visualisasi data, dan aplikasi interaktif.
+            </p>
+
+            <div class="project-grid">
+                <!-- KARTU 1 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-number">Proyek 01</span>
+                        <h3>Website Portofolio Mahasiswa</h3>
+                    </div>
+                    <p>Pengembangan website profil pribadi dengan struktur semantik HTML5 murni dan tata letak responsif menggunakan CSS modern.</p>
+                    <div class="card-tags">
+                        <span class="tag">HTML5</span>
+                        <span class="tag">Flexbox</span>
+                        <span class="tag">CSS Grid</span>
+                    </div>
+                    <a href="#profil" class="card-link">Lihat Detail &rarr;</a>
+                </div>
+
+                <!-- KARTU 2 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-number">Proyek 02</span>
+                        <h3>Dashboard Analisis Akademik</h3>
+                    </div>
+                    <p>Aplikasi visualisasi data performa indeks prestasi mahasiswa dengan grafik statistik interaktif dan ringkasan nilai semester.</p>
+                    <div class="card-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Chart.js</span>
+                        <span class="tag">Responsive</span>
+                    </div>
+                    <a href="#pendidikan" class="card-link">Lihat Detail &rarr;</a>
+                </div>
+
+                <!-- KARTU 3 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-number">Proyek 03</span>
+                        <h3>Aplikasi E-Commerce UMKM</h3>
+                    </div>
+                    <p>Antarmuka katalog produk toko online mandiri yang dilengkapi fitur filter kategori, keranjang belanja, dan estimasi ongkir.</p>
+                    <div class="card-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">CSS Grid</span>
+                        <span class="tag">Web App</span>
+                    </div>
+                    <a href="#portofolio" class="card-link">Lihat Detail &rarr;</a>
+                </div>
+
+                <!-- KARTU 4 -->
+                <div class="project-card">
+                    <div class="card-header">
+                        <span class="card-number">Proyek 04</span>
+                        <h3>Sistem Manajemen Tugas (Task Tracker)</h3>
+                    </div>
+                    <p>Alat produktivitas untuk mencatat, menjadwalkan, dan memantau progres tugas kuliah dengan penyimpanan status berbasis browser.</p>
+                    <div class="card-tags">
+                        <span class="tag">Productivity</span>
+                        <span class="tag">DOM API</span>
+                        <span class="tag">CSS Flexbox</span>
+                    </div>
+                    <a href="kontak.html" class="card-link">Lihat Detail &rarr;</a>
+                </div>
+            </div>
+        </article>
+
+        <!-- ASIDE: KETERAMPILAN & TOOLS -->
+        <aside id="keterampilan" class="section-box">
+            <h2 class="section-title">Keterampilan &amp; Perkakas</h2>
+            <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 12px;">
+                Teknologi yang dipelajari dan diimplementasikan dalam pengembangan web:
+            </p>
+            <div class="skills-grid">
+                <span class="skill-badge">HTML5 Semantik</span>
+                <span class="skill-badge">CSS Flexbox (1D Layout)</span>
+                <span class="skill-badge">CSS Grid Auto-Fit (2D Layout)</span>
+                <span class="skill-badge">Responsive Web Design</span>
+                <span class="skill-badge">Chrome DevTools</span>
+                <span class="skill-badge">Git &amp; GitHub</span>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- ======================================================================
+         4. DOKUMEN SEMANTIK: <footer> DENGAN FLEXBOX
+         Implementasi Flexbox untuk membagi hak cipta (kiri) dan tautan aksi (kanan)
+         ====================================================================== -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-left">
+                <p>&copy; 2026 Muhamad Dwi Cahyo &mdash; All Rights Reserved</p>
+                <small>Teknik Informatika &bull; TI 3C &bull; NIM: 202569040042</small>
+            </div>
+            <div class="footer-right">
+                <a href="#profil">Ke Atas &uarr;</a>
+                <a href="kontak.html">Kirim Saran &amp; Kontak</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

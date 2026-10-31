@@ -1,0 +1,566 @@
+/* ==========================================================================
+   PRAKTIKUM 3: TEKNOLOGI PENGEMBANGAN WEB
+   TOPIK: STYLING CSS MODERN &mdash; FLEXBOX & CSS GRID AUTO-FIT
+   MAHASISWA: MUHAMAD DWI CAHYO (NIM: 202569040042) &mdash; KELAS: TI 3C
+   ==========================================================================
+   PANDUAN PEMBELAJARAN:
+   1. Flexbox digunakan untuk layout 1-Dimensi (baris ATAU kolom).
+      -> Diterapkan pada: Header, Navbar, Footer, Tags, & Skills.
+   2. CSS Grid digunakan untuk layout 2-Dimensi (baris DAN kolom sekaligus).
+      -> Diterapkan pada: Portofolio Proyek (mekanisme auto-fit).
+   3. Responsive Web Design (RWD) diuji pada Chrome DevTools:
+      -> Mobile  : 375px
+      -> Tablet  : 768px
+      -> Desktop : 1200px
+   ========================================================================== */
+
+/* ==========================================================================
+   BAGIAN 1: VARIABEL WARNA & RESET DASAR CSS
+   ========================================================================== */
+:root {
+    /* Palet Warna Modern */
+    --color-primary: #1d4ed8;       /* Biru dominan */
+    --color-primary-dark: #1e3a8a;  /* Biru tua untuk gradien header */
+    --color-primary-light: #eff6ff; /* Biru sangat muda untuk aksen background */
+    --color-text-main: #0f172a;     /* Teks gelap agar nyaman dibaca */
+    --color-text-muted: #475569;    /* Teks abu-abu untuk deskripsi tambahan */
+    --color-bg-page: #f8fafc;       /* Warna latar belakang halaman */
+    --color-surface: #ffffff;       /* Warna kartu & kontainer */
+    --color-border: #cbd5e1;        /* Garis pembatas (border) */
+    
+    /* Variabel Layout */
+    --max-width: 1140px;            /* Batas lebar maksimum kontainer */
+    --border-radius: 10px;          /* Kelengkungan sudut elemen */
+}
+
+/* Reset CSS Global: Menghilangkan margin bawaan & mengunci box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Padding dan border dihitung di dalam lebar elemen */
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--color-bg-page);
+    color: var(--color-text-main);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   BAGIAN 2: HEADER (IMPLEMENTASI FLEXBOX)
+   Syarat Tugas: Wajib mengimplementasikan Flexbox pada Header.
+   
+   Konsep Pembelajaran:
+   - display: flex -> Mengaktifkan Flexbox pada kontainer header.
+   - flex-direction: row -> Elemen disusun horizontal (kiri: Judul, kanan: NIM).
+   - justify-content: space-between -> Mendorong kedua sisi ke ujung kiri dan kanan.
+   - align-items: center -> Menyejajarkan elemen tepat di tengah secara vertikal.
+   - flex-wrap: wrap -> Otomatis membungkus rapi jika resolusi layar sempit.
+   ========================================================================== */
+header {
+    background: linear-gradient(135deg, var(--color-primary-dark), #2563eb);
+    color: #ffffff;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+
+    /* PENGATURAN FLEXBOX HEADER */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.header-title h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.header-title p {
+    color: #bfdbfe;
+    font-size: 0.95rem;
+    margin-top: 4px;
+}
+
+.header-badge {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-align: right;
+}
+
+.badge-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #e0e7ff;
+}
+
+.badge-val {
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   BAGIAN 3: NAVBAR (IMPLEMENTASI FLEXBOX)
+   Syarat Tugas: Wajib mengimplementasikan Flexbox pada Navbar.
+   
+   Konsep Pembelajaran:
+   - display: flex -> Mengaktifkan Flexbox pada tag <ul>.
+   - justify-content: center -> Menempatkan menu navigasi di tengah halaman.
+   - gap: 16px -> Memberi jarak teratur tanpa margin manual antar elemen <li>.
+   - position: sticky -> Membuat menu tetap terlihat saat halaman digulir.
+   ========================================================================== */
+nav {
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.nav-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+nav ul {
+    list-style: none;
+
+    /* PENGATURAN FLEXBOX NAVBAR */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--color-text-main);
+    font-weight: 600;
+    font-size: 0.92rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+nav a:hover {
+    color: var(--color-primary);
+    background-color: var(--color-primary-light);
+}
+
+/* ==========================================================================
+   BAGIAN 4: KONTEN UTAMA (STRUKTUR SEMANTIK PERTEMUAN 2)
+   Elemen: <main>, <section>, <article>, <aside>
+   ========================================================================== */
+main {
+    max-width: var(--max-width);
+    margin: 28px auto;
+    padding: 0 16px;
+}
+
+/* Kotak Section */
+.section-box {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.section-title {
+    font-size: 1.35rem;
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary-light);
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+/* --- Profil Mahasiswa (Section) --- */
+.profile-layout {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.profile-photo {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--color-primary-light);
+    flex-shrink: 0;
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    flex: 1;
+    min-width: 250px;
+}
+
+.profile-details h3 {
+    font-size: 1.25rem;
+    color: var(--color-text-main);
+    margin-bottom: 6px;
+}
+
+.profile-bio {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.profile-meta {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 8px 16px;
+}
+
+.profile-meta li {
+    font-size: 0.92rem;
+}
+
+/* --- Riwayat Pendidikan (Article 1) --- */
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.edu-item {
+    border-left: 3px solid var(--color-primary);
+    padding-left: 14px;
+}
+
+.edu-item h3 {
+    font-size: 1.05rem;
+    color: var(--color-text-main);
+}
+
+.edu-meta {
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 2px 0 6px 0;
+}
+
+.edu-item p {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   BAGIAN 5: PORTOFOLIO / DAFTAR ARTIKEL (CSS GRID DENGAN AUTO-FIT)
+   Syarat Tugas:
+   - Wajib menggunakan CSS Grid untuk menampilkan daftar artikel/portofolio.
+   - Minimal 4 kartu.
+   - Wajib menggunakan mekanisme auto-fit: repeat(auto-fit, minmax(...)).
+
+   PENJELASAN MEKANISME CSS GRID AUTO-FIT:
+   --------------------------------------------------------------------------
+   1. display: grid;
+      Mengaktifkan model layout 2-dimensi pada container .project-grid.
+   
+   2. grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      - repeat(): Memerintahkan browser mengulang pembagian kolom secara otomatis.
+      - auto-fit: Browser menghitung berapa banyak kartu yang muat dalam 1 baris.
+        Jika lebar layar bertambah (Desktop), kolom bertambah.
+        Jika tersisa ruang kosong, kartu yang ada akan meregang (stretch) mengisi baris.
+      - minmax(250px, 1fr): Ukuran kartu minimal 250px.
+        Jika ruang lebih lebar, kartu mengambil 1 pecahan fraksi (1fr) proporsional.
+   
+   3. gap: 18px;
+      Memberi ruang pemisah yang presisi antar kolom dan antar baris.
+   ========================================================================== */
+.portfolio-intro {
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+    margin-bottom: 18px;
+}
+
+.project-grid {
+    /* IMPLEMENTASI CSS GRID AUTO-FIT */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+}
+
+/* Kartu Proyek Individual */
+.project-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 18px;
+    
+    /* Flexbox vertikal di dalam kartu agar tombol di bawah selalu rata */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+    margin-bottom: 10px;
+}
+
+.card-number {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.project-card h3 {
+    font-size: 1.1rem;
+    color: var(--color-text-main);
+    margin: 4px 0 8px 0;
+    line-height: 1.3;
+}
+
+.project-card p {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 14px;
+    flex-grow: 1; /* Mendorong tombol link selalu sejajar di dasar kartu */
+}
+
+.card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.tag {
+    background-color: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.card-link {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.card-link:hover {
+    text-decoration: underline;
+}
+
+/* --- Keterampilan & Perkakas (Aside) --- */
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-badge {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    border: 1px solid #bfdbfe;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   BAGIAN 6: FOOTER (IMPLEMENTASI FLEXBOX)
+   Syarat Tugas: Wajib mengimplementasikan Flexbox pada Footer.
+   
+   Konsep Pembelajaran:
+   - display: flex -> Mengatur footer agar fleksibel.
+   - justify-content: space-between -> Menempatkan copyright di kiri dan navigasi di kanan.
+   - align-items: center -> Menjaga posisi rata tengah secara vertikal.
+   - flex-wrap: wrap -> Membungkus dengan aman di resolusi mobile tanpa overflow.
+   ========================================================================== */
+footer {
+    background-color: #0f172a;
+    color: #94a3b8;
+    padding: 24px 20px;
+    margin-top: 40px;
+}
+
+.footer-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+
+    /* PENGATURAN FLEXBOX FOOTER */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.footer-left p {
+    font-size: 0.9rem;
+    color: #cbd5e1;
+}
+
+.footer-left small {
+    font-size: 0.78rem;
+    color: #64748b;
+}
+
+.footer-right {
+    display: flex;
+    gap: 16px;
+}
+
+.footer-right a {
+    color: #60a5fa;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-right a:hover {
+    color: #93c5fd;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   BAGIAN 7: PENGUJIAN RESPONSIF CHROME DEVTOOLS
+   Target Resolusi Pengujian Sesuai Kriteria Tugas:
+   1. Mobile  : 375px
+   2. Tablet  : 768px
+   3. Desktop : 1200px
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   7.1. TABLET (Breakpoint max-width: 768px)
+   Uji di DevTools: Toggle Device Toolbar -> Width: 768px
+   Hasil: Grid portofolio otomatis menjadi 2 kolom, header dan footer rapi.
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-badge {
+        text-align: left;
+        width: 100%;
+    }
+
+    nav ul {
+        gap: 10px;
+        justify-content: center;
+    }
+
+    .profile-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-photo {
+        margin: 0 auto;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   7.2. MOBILE (Breakpoint max-width: 480px / Pengujian 375px)
+   Uji di DevTools: Toggle Device Toolbar -> Pilih 'iPhone SE' / 375px
+   Hasil:
+   - Header teks disesuaikan tidak overflow.
+   - Navbar menggunakan menu wrap horizontal yang compact dan nyaman disentuh.
+   - Grid portofolio otomatis menjadi 1 kolom penuh (minmax 250px memicu 1 kolom).
+   - Footer tersusun vertikal teratur di layar sempit.
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    header {
+        padding: 18px 14px;
+    }
+
+    .header-title h1 {
+        font-size: 1.4rem;
+    }
+
+    nav ul {
+        gap: 8px;
+        padding: 8px 0;
+    }
+
+    nav a {
+        padding: 4px 10px;
+        font-size: 0.82rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+    }
+
+    .section-box {
+        padding: 16px 12px;
+    }
+
+    /* Memastikan 1 kolom penuh pada 375px */
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-container {
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-right {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   7.3. DESKTOP (Pengujian 1200px)
+   Uji di DevTools: Toggle Device Toolbar -> Responsive / Width: 1200px
+   Hasil:
+   - Container terpusat di tengah dengan margin: 0 auto dan max-width 1140px.
+   - Grid portofolio dengan auto-fit otomatis membagi kartu menjadi 4 kolom sejajar!
+   -------------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+    .header-title h1 {
+        font-size: 2rem;
+    }
+}
