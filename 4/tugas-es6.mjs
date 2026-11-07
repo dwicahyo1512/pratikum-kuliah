@@ -204,8 +204,32 @@ export const rekapSemuaKategori = (daftar) =>
     total: hitungTotalPerKategori(daftar, kat),
   }));
 
-// Verifikasi chaining
-console.log("Rekap total per kategori:");
-rekapSemuaKategori(transaksiBelanja).forEach(({ kategori, total }) => {
-  console.log(`- ${kategori.padEnd(20)}: ${formatRupiah(total)}`);
-});
+/**
+ * STATISTIK: Cari item transaksi dengan harga satuan tertinggi
+ * Menggunakan Arrow Function, reduce(), dan Destructuring
+ */
+export const cariBarangTermahal = (daftar) =>
+  daftar.reduce(
+    (termahal, item) => (item.harga > termahal.harga ? item : termahal),
+    daftar[0]
+  );
+
+/**
+ * STATISTIK: Hitung total kuantitas seluruh unit barang yang dibeli
+ * Menggunakan Arrow Function, reduce(), dan parameter Destructuring: `({ qty })`
+ */
+export const hitungTotalKuantitas = (daftar) =>
+  daftar.reduce((totalQty, { qty }) => totalQty + qty, 0);
+
+/**
+ * STATISTIK: Hitung rata-rata nilai per transaksi
+ * Menggunakan Arrow Function dan hitungTotalKeseluruhan
+ */
+export const hitungRataRataTransaksi = (daftar) =>
+  daftar.length > 0 ? hitungTotalKeseluruhan(daftar) / daftar.length : 0;
+
+// Verifikasi statistik
+const barangPalingMahal = cariBarangTermahal(transaksiBelanja);
+console.log(`Barang termahal: ${barangPalingMahal.barang} (${formatRupiah(barangPalingMahal.harga)})`);
+console.log(`Total unit dibeli: ${hitungTotalKuantitas(transaksiBelanja)} unit`);
+console.log(`Rata-rata transaksi: ${formatRupiah(hitungRataRataTransaksi(transaksiBelanja))}`);
