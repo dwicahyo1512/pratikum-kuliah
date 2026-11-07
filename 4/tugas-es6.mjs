@@ -228,8 +228,76 @@ export const hitungTotalKuantitas = (daftar) =>
 export const hitungRataRataTransaksi = (daftar) =>
   daftar.length > 0 ? hitungTotalKeseluruhan(daftar) / daftar.length : 0;
 
-// Verifikasi statistik
-const barangPalingMahal = cariBarangTermahal(transaksiBelanja);
-console.log(`Barang termahal: ${barangPalingMahal.barang} (${formatRupiah(barangPalingMahal.harga)})`);
-console.log(`Total unit dibeli: ${hitungTotalKuantitas(transaksiBelanja)} unit`);
-console.log(`Rata-rata transaksi: ${formatRupiah(hitungRataRataTransaksi(transaksiBelanja))}`);
+/**
+ * LAPORAN UTAMA PRAKTIKUM 4
+ * Menghasilkan string laporan komprehensif implementasi ES6
+ * Menggunakan Arrow Function dan Destructuring
+ */
+export const buatLaporanPraktikum4 = (daftar = transaksiBelanja, kategoriFilter = "Elektronik") => {
+  const garisGanda = "=".repeat(88);
+  const garisTunggal = "-".repeat(88);
+
+  // 1. Eksekusi filter()
+  const hasilFilter = filterTransaksiByKategori(daftar, kategoriFilter);
+  const hasilFilterDenganSubtotal = hitungSubtotal(hasilFilter);
+  const totalKategoriFilter = hitungTotalKeseluruhan(hasilFilterDenganSubtotal);
+
+  // 2. Eksekusi map() pada seluruh data
+  const seluruhDenganSubtotal = hitungSubtotal(daftar);
+
+  // 3. Eksekusi reduce() total keseluruhan
+  const grandTotal = hitungTotalKeseluruhan(seluruhDenganSubtotal);
+
+  // 4. Eksekusi statistik
+  const { barang: namaTermahal, harga: hargaTermahal } = cariBarangTermahal(daftar);
+  const totalUnit = hitungTotalKuantitas(daftar);
+  const rataRata = hitungRataRataTransaksi(daftar);
+
+  // 5. Rekap semua kategori
+  const rekapKategori = rekapSemuaKategori(daftar);
+
+  return [
+    garisGanda,
+    "              LAPORAN PRAKTIKUM 4: PEMROGRAMAN JAVASCRIPT MODERN (ES6+)          ",
+    "               Studi Kasus: Pemrosesan Data Transaksi Belanja Konsumen            ",
+    garisGanda,
+    " IDENTITAS MAHASISWA:",
+    " - Nama          : Muhamad Dwi Cahyo",
+    " - NIM           : 202569040042",
+    " - Kelas         : TI 3C",
+    " - Program Studi : S1 Teknik Informatika",
+    garisTunggal,
+    "",
+    " [BAGIAN 1] DATA TRANSAKSI BELANJA AWAL (Raw Dataset - Array of Objects):",
+    formatTabelTransaksi(daftar),
+    "",
+    ` [BAGIAN 2] HASIL FILTER KATEGORI '${kategoriFilter.toUpperCase()}' (Implementasi filter()):`,
+    ` Ditemukan ${hasilFilter.length} item barang dalam kategori '${kategoriFilter}':`,
+    formatTabelSubtotal(hasilFilterDenganSubtotal),
+    ` Subtotal Kategori '${kategoriFilter}': ${formatRupiah(totalKategoriFilter)}`,
+    "",
+    " [BAGIAN 3] HASIL PERHITUNGAN SUBTOTAL SELURUH BARANG (Implementasi map()):",
+    " Formula Subtotal = harga * qty (diterapkan pada tiap objek via map & destructuring):",
+    formatTabelSubtotal(seluruhDenganSubtotal),
+    "",
+    " [BAGIAN 4] REKAPITULASI TOTAL PER KATEGORI (Method Chaining: filter -> map -> reduce):",
+    ...rekapKategori.map(
+      ({ kategori, total }, index) =>
+        `   ${index + 1}. Kategori ${kategori.padEnd(20)} : ${formatRupiah(total).padStart(15)}`
+    ),
+    "",
+    " [BAGIAN 5] TOTAL KESELURUHAN BELANJA (Implementasi reduce()):",
+    ` >>> GRAND TOTAL KESELURUHAN TRANSAKSI : ${formatRupiah(grandTotal)} <<<`,
+    "",
+    " [BAGIAN 6] RINGKASAN STATISTIK TRANSAKSI (Destructuring & Arrow Functions):",
+    ` - Total Unit Barang yang Dibeli : ${totalUnit} unit`,
+    ` - Nilai Rata-rata per Transaksi  : ${formatRupiah(rataRata)}`,
+    ` - Barang dengan Harga Tertinggi : ${namaTermahal} (${formatRupiah(hargaTermahal)})`,
+    garisGanda,
+    " STATUS: Pemrosesan data berhasil dieksekusi 100% menggunakan fitur ES6+.",
+    garisGanda,
+  ].join("\n");
+};
+
+// Cetak laporan jika dijalankan langsung via Node.js
+console.log(buatLaporanPraktikum4());
