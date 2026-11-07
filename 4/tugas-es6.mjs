@@ -180,6 +180,32 @@ export const hitungTotalKeseluruhan = (daftar) =>
     0
   );
 
-// Verifikasi kalkulasi total keseluruhan
-const grandTotal = hitungTotalKeseluruhan(transaksiBelanja);
-console.log(`Total keseluruhan transaksi belanja: ${formatRupiah(grandTotal)}`);
+/**
+ * FUNGSI KOMBINASI: Chaining Method filter() -> map() -> reduce()
+ * Menghitung akumulasi total belanja spesifik per kategori dengan pipeline deklaratif murni
+ * 
+ * @param {Array<Object>} daftar - Dataset transaksi
+ * @param {string} kategoriPilihan - Nama kategori
+ * @returns {number} Total biaya belanja kategori tersebut
+ */
+export const hitungTotalPerKategori = (daftar, kategoriPilihan) =>
+  daftar
+    .filter(({ kategori }) => kategori.toLowerCase() === kategoriPilihan.toLowerCase())
+    .map(({ harga, qty }) => harga * qty)
+    .reduce((acc, subtotal) => acc + subtotal, 0);
+
+/**
+ * Rekap total belanja untuk seluruh kategori yang tersedia
+ * Menggunakan Arrow Function, map, dan hitungTotalPerKategori
+ */
+export const rekapSemuaKategori = (daftar) =>
+  ambilDaftarKategori(daftar).map((kat) => ({
+    kategori: kat,
+    total: hitungTotalPerKategori(daftar, kat),
+  }));
+
+// Verifikasi chaining
+console.log("Rekap total per kategori:");
+rekapSemuaKategori(transaksiBelanja).forEach(({ kategori, total }) => {
+  console.log(`- ${kategori.padEnd(20)}: ${formatRupiah(total)}`);
+});
