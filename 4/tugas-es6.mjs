@@ -94,8 +94,7 @@ export const formatRupiah = (nominal) =>
 
 /**
  * Menampilkan daftar transaksi awal ke format string tabel terstruktur
- * Menggunakan Arrow Function dan Object Destructuring pada parameter item:
- * `({ id, barang, harga, qty, kategori })`
+ * Menggunakan Arrow Function dan Object Destructuring: `({ id, barang, harga, qty, kategori })`
  * 
  * @param {Array<Object>} daftar - Array data transaksi
  * @returns {string} Teks representasi tabel
@@ -111,5 +110,27 @@ export const formatTabelTransaksi = (daftar) => {
   return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
 };
 
-console.log("=== DAFTAR TRANSAKSI BELANJA AWAL ===");
-console.log(formatTabelTransaksi(transaksiBelanja));
+/**
+ * FUNGSI 1: filter()
+ * Menyaring transaksi belanja berdasarkan kategori tertentu
+ * Menggunakan Arrow Function dan Object Destructuring pada parameter: `({ kategori })`
+ * 
+ * @param {Array<Object>} daftar - Dataset transaksi
+ * @param {string} targetKategori - Nama kategori yang ingin disaring
+ * @returns {Array<Object>} Array hasil saringan kategori
+ */
+export const filterTransaksiByKategori = (daftar, targetKategori) =>
+  daftar.filter(({ kategori }) => kategori.toLowerCase() === targetKategori.toLowerCase());
+
+/**
+ * Mengambil daftar kategori unik dari data transaksi menggunakan Set & Spread Operator
+ * Arrow Function & Destructuring: `({ kategori })`
+ */
+export const ambilDaftarKategori = (daftar) => [
+  ...new Set(daftar.map(({ kategori }) => kategori)),
+];
+
+// Pengujian saringan filter
+const kategoriUji = "Elektronik";
+const hasilFilter = filterTransaksiByKategori(transaksiBelanja, kategoriUji);
+console.log(`Ditemukan ${hasilFilter.length} transaksi untuk kategori '${kategoriUji}'.`);
