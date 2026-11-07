@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npx serve .",
     "p1": "node 1/pratikum1.js",
-    "p1:simple": "node 1/simple-pratikum1.js"
+    "p1:simple": "node 1/simple-pratikum1.js",
+    "p4": "node 4/tugas-es6.mjs",
+    "p4:root": "node tugas-es6.mjs"
   },
   "keywords": [
     "praktikum",
