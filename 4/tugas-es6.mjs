@@ -15,8 +15,9 @@
  */
 
 /**
- * Data transaksi belanja dasar (Array of Objects)
- * Minimal 6 data dengan field: id, barang, harga, qty, kategori
+ * Data transaksi belanja (Array of Objects)
+ * Berisi 8 data transaksi belanja mencakup beragam kategori untuk pengujian menyeluruh
+ * Setiap objek memiliki atribut: id, barang, harga, qty, dan kategori
  */
 export const transaksiBelanja = [
   {
@@ -42,25 +43,39 @@ export const transaksiBelanja = [
   },
   {
     id: 4,
+    barang: "Monitor LED 24 Inch IPS",
+    harga: 1650000,
+    qty: 1,
+    kategori: "Elektronik",
+  },
+  {
+    id: 5,
     barang: "Buku Catatan Grid A5",
     harga: 35000,
     qty: 3,
     kategori: "Alat Tulis",
   },
   {
-    id: 5,
+    id: 6,
     barang: "Pulpen Gel 0.5mm Pack",
     harga: 45000,
     qty: 2,
     kategori: "Alat Tulis",
   },
   {
-    id: 6,
+    id: 7,
     barang: "Kemeja Flannel Pria",
     harga: 180000,
     qty: 2,
     kategori: "Pakaian",
   },
+  {
+    id: 8,
+    barang: "Kopi Arabika Gayo 250gr",
+    harga: 75000,
+    qty: 3,
+    kategori: "Makanan & Minuman",
+  },
 ];
 
-console.log(`Berhasil memuat ${transaksiBelanja.length} data transaksi belanja dasar.`);
+console.log(`Dataset transaksi belanja siap digunakan (${transaksiBelanja.length} data item).`);
