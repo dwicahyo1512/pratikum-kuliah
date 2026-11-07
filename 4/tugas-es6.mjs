@@ -163,6 +163,23 @@ export const formatTabelSubtotal = (daftarDenganSubtotal) => {
   return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
 };
 
-// Verifikasi kalkulasi subtotal
-const dataSubtotal = hitungSubtotal(transaksiBelanja);
-console.log(`Kalkulasi subtotal berhasil untuk ${dataSubtotal.length} item.`);
+/**
+ * FUNGSI 3: reduce()
+ * Menghitung total keseluruhan nilai transaksi belanja
+ * Menggunakan Arrow Function dan Object Destructuring pada parameter akumulator callback:
+ * `(akumulator, { subtotal, harga, qty })`
+ * Jika item belum memiliki field `subtotal`, otomatis dihitung dari `harga * qty`
+ * 
+ * @param {Array<Object>} daftar - Dataset transaksi
+ * @returns {number} Nilai total belanja dalam angka
+ */
+export const hitungTotalKeseluruhan = (daftar) =>
+  daftar.reduce(
+    (akumulator, { subtotal, harga, qty }) =>
+      akumulator + (subtotal !== undefined ? subtotal : harga * qty),
+    0
+  );
+
+// Verifikasi kalkulasi total keseluruhan
+const grandTotal = hitungTotalKeseluruhan(transaksiBelanja);
+console.log(`Total keseluruhan transaksi belanja: ${formatRupiah(grandTotal)}`);
