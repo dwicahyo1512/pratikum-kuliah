@@ -130,7 +130,39 @@ export const ambilDaftarKategori = (daftar) => [
   ...new Set(daftar.map(({ kategori }) => kategori)),
 ];
 
-// Pengujian saringan filter
-const kategoriUji = "Elektronik";
-const hasilFilter = filterTransaksiByKategori(transaksiBelanja, kategoriUji);
-console.log(`Ditemukan ${hasilFilter.length} transaksi untuk kategori '${kategoriUji}'.`);
+/**
+ * FUNGSI 2: map()
+ * Menghitung subtotal tiap barang (subtotal = harga * qty)
+ * Menggunakan Arrow Function dan Object Destructuring parameter: `({ harga, qty, ...rest })`
+ * Mengembalikan objek transaksi baru yang diperkaya properti `subtotal`
+ * 
+ * @param {Array<Object>} daftar - Dataset transaksi
+ * @returns {Array<Object>} Array transaksi yang memuat kalkulasi subtotal
+ */
+export const hitungSubtotal = (daftar) =>
+  daftar.map(({ harga, qty, ...rest }) => ({
+    ...rest,
+    harga,
+    qty,
+    subtotal: harga * qty,
+  }));
+
+/**
+ * Format string tabel transaksi yang menyertakan kolom Subtotal
+ * Menggunakan Arrow Function & Object Destructuring: `({ id, barang, harga, qty, subtotal, kategori })`
+ */
+export const formatTabelSubtotal = (daftarDenganSubtotal) => {
+  const baris = daftarDenganSubtotal.map(
+    ({ id, barang, harga, qty, subtotal, kategori }) =>
+      `| ${String(id).padEnd(2)} | ${barang.padEnd(26)} | ${kategori.padEnd(18)} | ${formatRupiah(harga).padStart(13)} | ${String(qty).padStart(3)} | ${formatRupiah(subtotal).padStart(14)} |`
+  );
+
+  const pembatas = "+----+----------------------------+--------------------+---------------+-----+----------------+";
+  const header   = "| ID | Nama Barang                | Kategori           | Harga Satuan  | Qty | Subtotal       |";
+
+  return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
+};
+
+// Verifikasi kalkulasi subtotal
+const dataSubtotal = hitungSubtotal(transaksiBelanja);
+console.log(`Kalkulasi subtotal berhasil untuk ${dataSubtotal.length} item.`);
