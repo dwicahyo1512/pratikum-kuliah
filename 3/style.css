@@ -384,6 +384,12 @@ main {
 }
 
 /* --- Keterampilan & Perkakas (Aside) --- */
+.aside-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
 .skills-grid {
     display: flex;
     flex-wrap: wrap;

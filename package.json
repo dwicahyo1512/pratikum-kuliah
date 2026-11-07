@@ -1,0 +1,22 @@
+{
+  "name": "pratikum-kuliah",
+  "version": "1.0.0",
+  "description": "Koleksi Tugas Praktikum Pemrograman Web - Muhamad Dwi Cahyo (NIM: 202569040042, Kelas: TI 3C)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "p1": "node 1/pratikum1.js",
+    "p1:simple": "node 1/simple-pratikum1.js"
+  },
+  "keywords": [
+    "praktikum",
+    "pemrograman-web",
+    "html5",
+    "css3",
+    "flexbox",
+    "grid",
+    "javascript"
+  ],
+  "author": "Muhamad Dwi Cahyo <202569040042>",
+  "license": "MIT"
+}
