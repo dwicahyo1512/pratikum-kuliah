@@ -154,6 +154,7 @@
         .badge-p1 { background: #fef3c7; color: #92400e; }
         .badge-p2 { background: #dbeafe; color: #1e40af; }
         .badge-p3 { background: #dcfce7; color: #166534; }
+        .badge-p4 { background: #f3e8ff; color: #6b21a8; }
 
         .practicum-card h3 {
             font-size: 1.25rem;
@@ -258,8 +259,10 @@
             background: #0f172a;
             color: #f1f5f9;
             border-radius: 12px;
-            max-width: 600px;
+            max-width: 820px;
             width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
             padding: 24px;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
             border: 1px solid #334155;
@@ -326,7 +329,7 @@
         <div class="header-content">
             <span class="badge-academic">Repositori Pembelajaran &amp; Tugas Kuliah</span>
             <h1>Koleksi Praktikum Pemrograman Web</h1>
-            <p>Kumpulan kode tugas terstruktur mata kuliah Pemrograman Web dari Praktikum 1 hingga Praktikum 3.</p>
+            <p>Kumpulan kode tugas terstruktur mata kuliah Pemrograman Web dari Praktikum 1 hingga Praktikum 4.</p>
             <div class="meta-chips">
                 <span class="chip">👤 Muhamad Dwi Cahyo</span>
                 <span class="chip">🆔 NIM: 202569040042</span>
@@ -419,6 +422,32 @@
                 </div>
             </div>
 
+            <!-- PRAKTIKUM 4 -->
+            <div class="practicum-card">
+                <div>
+                    <span class="card-badge badge-p4">Praktikum 04</span>
+                    <h3>JavaScript Modern (ES6+)</h3>
+                    <p class="desc">
+                        Pengolahan data transaksi belanja konsumen memanfaatkan fitur modern ES6: arrow functions, destructuring objek/array, serta higher-order array methods (filter, map, dan reduce).
+                    </p>
+                    <ul class="features-list">
+                        <li>Array of Objects 8 Data Transaksi Belanja</li>
+                        <li>filter(): Menyaring Data Berdasarkan Kategori</li>
+                        <li>map(): Menghitung Nilai Subtotal (harga &times; qty)</li>
+                        <li>reduce(): Akumulasi Total Belanja Keseluruhan</li>
+                        <li>Destructuring &amp; Arrow Functions Deklaratif</li>
+                    </ul>
+                </div>
+                <div class="actions-group">
+                    <button type="button" class="btn btn-terminal" onclick="openConsolePreviewP4()">
+                        ▶ Jalankan &amp; Preview Output ES6
+                    </button>
+                    <a href="4/tugas-es6.mjs" target="_blank" class="btn btn-outline">
+                        📄 Lihat File 4/tugas-es6.mjs
+                    </a>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -426,7 +455,7 @@
     <div id="codeModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h4>Terminal Output: node 1/pratikum1.js</h4>
+                <h4 id="modalTitle">Terminal Output: node 1/pratikum1.js</h4>
                 <button type="button" class="modal-close" onclick="closeConsolePreview()">&times;</button>
             </div>
             <pre><code id="terminalOutput">Memuat output...</code></pre>
@@ -443,6 +472,7 @@
 
     <script>
         function openConsolePreview() {
+            document.getElementById('modalTitle').textContent = "Terminal Output: node 1/pratikum1.js";
             const profil = {
                 nama: "Muhamad Dwi Cahyo",
                 nim: "202569040042",
@@ -465,8 +495,128 @@
             ].join("\n");
 
             document.getElementById('terminalOutput').textContent = output;
-            const modal = document.getElementById('codeModal');
-            modal.style.display = 'flex';
+            document.getElementById('codeModal').style.display = 'flex';
+        }
+
+        function openConsolePreviewP4() {
+            document.getElementById('modalTitle').textContent = "Terminal Output: node 4/tugas-es6.mjs (ES6+)";
+            
+            // Dataset Praktikum 4
+            const transaksiBelanja = [
+                { id: 1, barang: "Laptop Asus Vivobook", harga: 8500000, qty: 1, kategori: "Elektronik" },
+                { id: 2, barang: "Mouse Wireless Logitech", harga: 250000, qty: 2, kategori: "Elektronik" },
+                { id: 3, barang: "Keyboard Mekanikal RGB", harga: 450000, qty: 1, kategori: "Elektronik" },
+                { id: 4, barang: "Monitor LED 24 Inch IPS", harga: 1650000, qty: 1, kategori: "Elektronik" },
+                { id: 5, barang: "Buku Catatan Grid A5", harga: 35000, qty: 3, kategori: "Alat Tulis" },
+                { id: 6, barang: "Pulpen Gel 0.5mm Pack", harga: 45000, qty: 2, kategori: "Alat Tulis" },
+                { id: 7, barang: "Kemeja Flannel Pria", harga: 180000, qty: 2, kategori: "Pakaian" },
+                { id: 8, barang: "Kopi Arabika Gayo 250gr", harga: 75000, qty: 3, kategori: "Makanan & Minuman" }
+            ];
+
+            // Arrow Functions & Destructuring
+            const formatRupiah = (nominal) =>
+                new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", maximumFractionDigits: 0 }).format(nominal);
+
+            const formatTabelTransaksi = (daftar) => {
+                const baris = daftar.map(({ id, barang, harga, qty, kategori }) => 
+                    `| ${String(id).padEnd(2)} | ${barang.padEnd(26)} | ${kategori.padEnd(18)} | ${formatRupiah(harga).padStart(14)} | ${String(qty).padStart(3)} unit |`
+                );
+                const pembatas = "+----+----------------------------+--------------------+----------------+-----------+";
+                const header = "| ID | Nama Barang                | Kategori           | Harga Satuan   | Kuantitas |";
+                return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
+            };
+
+            const formatTabelSubtotal = (daftarDenganSubtotal) => {
+                const baris = daftarDenganSubtotal.map(
+                    ({ id, barang, harga, qty, subtotal, kategori }) =>
+                        `| ${String(id).padEnd(2)} | ${barang.padEnd(26)} | ${kategori.padEnd(18)} | ${formatRupiah(harga).padStart(13)} | ${String(qty).padStart(3)} | ${formatRupiah(subtotal).padStart(14)} |`
+                );
+                const pembatas = "+----+----------------------------+--------------------+---------------+-----+----------------+";
+                const header   = "| ID | Nama Barang                | Kategori           | Harga Satuan  | Qty | Subtotal       |";
+                return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
+            };
+
+            const filterTransaksiByKategori = (daftar, targetKategori) =>
+                daftar.filter(({ kategori }) => kategori.toLowerCase() === targetKategori.toLowerCase());
+
+            const hitungSubtotal = (daftar) =>
+                daftar.map(({ harga, qty, ...rest }) => ({ ...rest, harga, qty, subtotal: harga * qty }));
+
+            const hitungTotalKeseluruhan = (daftar) =>
+                daftar.reduce((acc, { subtotal, harga, qty }) => acc + (subtotal !== undefined ? subtotal : harga * qty), 0);
+
+            const ambilDaftarKategori = (daftar) => [...new Set(daftar.map(({ kategori }) => kategori))];
+
+            const hitungTotalPerKategori = (daftar, targetKategori) =>
+                daftar
+                    .filter(({ kategori }) => kategori.toLowerCase() === targetKategori.toLowerCase())
+                    .map(({ harga, qty }) => harga * qty)
+                    .reduce((acc, subtotal) => acc + subtotal, 0);
+
+            const rekapSemuaKategori = (daftar) =>
+                ambilDaftarKategori(daftar).map((kat) => ({ kategori: kat, total: hitungTotalPerKategori(daftar, kat) }));
+
+            const cariBarangTermahal = (daftar) =>
+                daftar.reduce((termahal, item) => (item.harga > termahal.harga ? item : termahal), daftar[0]);
+
+            const hitungTotalKuantitas = (daftar) =>
+                daftar.reduce((totalQty, { qty }) => totalQty + qty, 0);
+
+            const hitungRataRataTransaksi = (daftar) =>
+                daftar.length > 0 ? hitungTotalKeseluruhan(daftar) / daftar.length : 0;
+
+            // Pemrosesan
+            const garisGanda = "=".repeat(88);
+            const garisTunggal = "-".repeat(88);
+            const hasilFilter = filterTransaksiByKategori(transaksiBelanja, "Elektronik");
+            const hasilFilterSubtotal = hitungSubtotal(hasilFilter);
+            const seluruhSubtotal = hitungSubtotal(transaksiBelanja);
+            const grandTotal = hitungTotalKeseluruhan(seluruhSubtotal);
+            const { barang: namaTermahal, harga: hargaTermahal } = cariBarangTermahal(transaksiBelanja);
+            const rekap = rekapSemuaKategori(transaksiBelanja);
+
+            const output = [
+                garisGanda,
+                "              LAPORAN PRAKTIKUM 4: PEMROGRAMAN JAVASCRIPT MODERN (ES6+)          ",
+                "               Studi Kasus: Pemrosesan Data Transaksi Belanja Konsumen            ",
+                garisGanda,
+                " IDENTITAS MAHASISWA:",
+                " - Nama          : Muhamad Dwi Cahyo",
+                " - NIM           : 202569040042",
+                " - Kelas         : TI 3C",
+                " - Program Studi : S1 Teknik Informatika",
+                garisTunggal,
+                "",
+                " [BAGIAN 1] DATA TRANSAKSI BELANJA AWAL (Raw Dataset - Array of Objects):",
+                formatTabelTransaksi(transaksiBelanja),
+                "",
+                " [BAGIAN 2] HASIL FILTER KATEGORI 'ELEKTRONIK' (Implementasi filter()):",
+                ` Ditemukan ${hasilFilter.length} item barang dalam kategori 'Elektronik':`,
+                formatTabelSubtotal(hasilFilterSubtotal),
+                ` Subtotal Kategori 'Elektronik': ${formatRupiah(hitungTotalKeseluruhan(hasilFilterSubtotal))}`,
+                "",
+                " [BAGIAN 3] HASIL PERHITUNGAN SUBTOTAL SELURUH BARANG (Implementasi map()):",
+                " Formula Subtotal = harga * qty (diterapkan pada tiap objek via map & destructuring):",
+                formatTabelSubtotal(seluruhSubtotal),
+                "",
+                " [BAGIAN 4] REKAPITULASI TOTAL PER KATEGORI (Method Chaining: filter -> map -> reduce):",
+                ...rekap.map(({ kategori, total }, idx) => `   ${idx + 1}. Kategori ${kategori.padEnd(20)} : ${formatRupiah(total).padStart(15)}`),
+                "",
+                " [BAGIAN 5] TOTAL KESELURUHAN BELANJA (Implementasi reduce()):",
+                ` >>> GRAND TOTAL KESELURUHAN TRANSAKSI : ${formatRupiah(grandTotal)} <<<`,
+                "",
+                " [BAGIAN 6] RINGKASAN STATISTIK TRANSAKSI (Destructuring & Arrow Functions):",
+                ` - Total Unit Barang yang Dibeli : ${hitungTotalKuantitas(transaksiBelanja)} unit`,
+                ` - Nilai Rata-rata per Transaksi  : ${formatRupiah(hitungRataRataTransaksi(transaksiBelanja))}`,
+                ` - Barang dengan Harga Tertinggi : ${namaTermahal} (${formatRupiah(hargaTermahal)})`,
+                garisGanda,
+                " STATUS: Pemrosesan data berhasil dieksekusi 100% menggunakan fitur ES6+.",
+                garisGanda,
+                "\n[Proses selesai dengan kode keluar 0]"
+            ].join("\n");
+
+            document.getElementById('terminalOutput').textContent = output;
+            document.getElementById('codeModal').style.display = 'flex';
         }
 
         function closeConsolePreview() {
