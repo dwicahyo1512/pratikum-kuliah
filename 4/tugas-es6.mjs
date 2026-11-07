@@ -92,5 +92,24 @@ export const formatRupiah = (nominal) =>
     maximumFractionDigits: 0,
   }).format(nominal);
 
-// Verifikasi fungsi helper formatRupiah
-console.log(`Uji formatRupiah: 8500000 => ${formatRupiah(8500000)}`);
+/**
+ * Menampilkan daftar transaksi awal ke format string tabel terstruktur
+ * Menggunakan Arrow Function dan Object Destructuring pada parameter item:
+ * `({ id, barang, harga, qty, kategori })`
+ * 
+ * @param {Array<Object>} daftar - Array data transaksi
+ * @returns {string} Teks representasi tabel
+ */
+export const formatTabelTransaksi = (daftar) => {
+  const baris = daftar.map(({ id, barang, harga, qty, kategori }) => 
+    `| ${String(id).padEnd(2)} | ${barang.padEnd(26)} | ${kategori.padEnd(18)} | ${formatRupiah(harga).padStart(14)} | ${String(qty).padStart(3)} unit |`
+  );
+
+  const pembatas = "+----+----------------------------+--------------------+----------------+-----------+";
+  const header = "| ID | Nama Barang                | Kategori           | Harga Satuan   | Kuantitas |";
+
+  return [pembatas, header, pembatas, ...baris, pembatas].join("\n");
+};
+
+console.log("=== DAFTAR TRANSAKSI BELANJA AWAL ===");
+console.log(formatTabelTransaksi(transaksiBelanja));
