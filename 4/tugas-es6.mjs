@@ -78,4 +78,19 @@ export const transaksiBelanja = [
   },
 ];
 
-console.log(`Dataset transaksi belanja siap digunakan (${transaksiBelanja.length} data item).`);
+/**
+ * Helper: Format angka menjadi format mata uang Rupiah (IDR)
+ * Menggunakan Arrow Function ES6
+ * 
+ * @param {number} nominal - Angka yang akan diformat
+ * @returns {string} String dalam format Rupiah, misal "Rp 8.500.000"
+ */
+export const formatRupiah = (nominal) =>
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    maximumFractionDigits: 0,
+  }).format(nominal);
+
+// Verifikasi fungsi helper formatRupiah
+console.log(`Uji formatRupiah: 8500000 => ${formatRupiah(8500000)}`);
