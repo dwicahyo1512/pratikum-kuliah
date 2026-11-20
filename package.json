@@ -8,7 +8,8 @@
     "p1": "node 1/pratikum1.js",
     "p1:simple": "node 1/simple-pratikum1.js",
     "p4": "node 4/tugas-es6.mjs",
-    "p4:root": "node tugas-es6.mjs"
+    "p4:root": "node tugas-es6.mjs",
+    "p5": "npx serve ."
   },
   "keywords": [
     "praktikum",
@@ -17,7 +18,9 @@
     "css3",
     "flexbox",
     "grid",
-    "javascript"
+    "javascript",
+    "fetch-api",
+    "open-meteo"
   ],
   "author": "Muhamad Dwi Cahyo <202569040042>",
   "license": "MIT"
