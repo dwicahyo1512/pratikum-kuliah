@@ -30,6 +30,11 @@ pratikum-kuliah/
 │   └── style.css               # Praktikum 3: External CSS (RWD 375px, 768px, 1200px)
 ├── 4/
 │   └── tugas-es6.mjs           # Praktikum 4: Pemrosesan data transaksi (ES6+ Module)
+├── 5/
+│   ├── pratikum5.html          # Praktikum 5: Integrasi Web API (Open-Meteo & GitHub)
+│   ├── style.css               # Praktikum 5: Styling modern, spinner, & state badges
+│   ├── app.js                  # Praktikum 5: Vanilla JS Fetch API & 3 state handling
+│   └── index.html              # Praktikum 5: Redirect entrypoint helper
 ├── tugas-es6.mjs               # Praktikum 4: Entrypoint root runner alias
 ├── index.html                  # Portal navigasi terpusat antarmuka web
 ├── package.json                # Skrip runner & metadata proyek
@@ -91,6 +96,27 @@ pratikum-kuliah/
 
   # Atau menggunakan skrip npm
   npm run p4
+  ```
+
+
+### 📌 Praktikum 5 — Integrasi Web API Publik (Fetch API)
+- **Topik**: Pembuatan aplikasi web menggunakan JavaScript murni (Vanilla JS) yang berinteraksi dengan REST API publik secara asinkron (`async/await` & `fetch()`) dengan penanganan kondisi state menyeluruh:
+  1. **Integrasi Open-Meteo Weather API**:
+     - Geocoding API (`https://geocoding-api.open-meteo.com/v1/search`) untuk pencarian koordinat nama kota.
+     - Forecast API (`https://api.open-meteo.com/v1/forecast`) untuk prakiraan suhu aktual, suhu terasa, kelembapan udara, kecepatan angin, curah hujan, kondisi WMO, dan status siang/malam tanpa autentikasi/API key.
+  2. **Integrasi GitHub REST API (Slide Pertemuan 06)**:
+     - Endpoint profil publik (`https://api.github.com/users/{username}`).
+     - Menampilkan avatar pengguna, nama lengkap, bio, jumlah repositori publik, serta tautan menuju profil asli GitHub.
+  3. **Penanganan 3 Kondisi Wajib (State Handling)**:
+     - **Loading State**: Animasi CSS spinner + teks loading selama pemanggilan jaringan berlangsung.
+     - **Success State**: Menampilkan kartu data responsif saat status response `200 OK`.
+     - **Error / 404 Not Found State**: Menampilkan pesan kesalahan ramah pengguna jika kota tidak terdaftar atau username tidak ditemukan (`"User tidak ditemukan"`).
+  4. **Bebas Ketergantungan**: Murni Vanilla JavaScript, zero-dependency.
+- **Berkas**: `5/pratikum5.html`, `5/style.css`, `5/app.js`, dan `5/index.html`.
+- **Cara Menjalankan**:
+  ```bash
+  npx serve .
+  # lalu buka http://localhost:3000/5/pratikum5.html
   ```
 
 ---
