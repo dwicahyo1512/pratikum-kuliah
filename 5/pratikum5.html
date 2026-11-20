@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Praktikum 05 — Integrasi Web API Publik (Open-Meteo &amp; GitHub) | Muhamad Dwi Cahyo</title>
+    <meta name="description" content="Aplikasi pencarian prakiraan cuaca Open-Meteo API dan profil GitHub publik menggunakan HTML, CSS, dan JavaScript murni (Vanilla JS) dengan penanganan state lengkap.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ======================================================================
+         1. HEADER: IDENTITAS MAHASISWA & JUDUL PRAKTIKUM
+         ====================================================================== -->
+    <header>
+        <div class="header-container">
+            <div class="header-brand">
+                <h1>🌦️ Praktikum 05 &bull; Integrasi Web API</h1>
+                <p>Implementasi Fetch API, Asynchronous JS, dan Penanganan State Aplikasi</p>
+            </div>
+            <div class="badge-student">
+                <div class="name">Muhamad Dwi Cahyo</div>
+                <div class="nim">NIM: 202569040042 &bull; Kelas: TI 3C</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         2. NAVBAR: NAVIGASI PORTAL & TAB MODE SWITCHER
+         ====================================================================== -->
+    <div class="nav-bar">
+        <div class="nav-container">
+            <a href="../index.html" class="back-link">
+                &larr; Kembali ke Portal Utama
+            </a>
+
+            <!-- Mode Switcher: Open-Meteo API (Utama) & GitHub Profile API -->
+            <div class="tabs-wrapper" role="tablist" aria-label="Mode Pencarian API">
+                <button type="button" id="tabWeather" class="tab-btn active" role="tab" aria-selected="true">
+                    🌦️ Open-Meteo Cuaca
+                </button>
+                <button type="button" id="tabGithub" class="tab-btn" role="tab" aria-selected="false">
+                    🐙 GitHub Profil
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         3. MAIN CONTENT: FORM PENCARIAN & CONTAINER STATE
+         ====================================================================== -->
+    <main>
+        
+        <div class="card-box">
+            <div class="section-head">
+                <h2 id="formLabel">Cari Prakiraan Cuaca Kota (Open-Meteo API)</h2>
+                <p>Data cuaca real-time global tanpa API key memanfaatkan standard modern Fetch API.</p>
+            </div>
+
+            <!-- Formulir Pencarian Publik API -->
+            <form id="searchForm" class="search-form" autocomplete="off">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="search-input" 
+                        placeholder="Ketik nama kota, contoh: Palembang, Jakarta, Tokyo..." 
+                        required 
+                        aria-label="Input kata kunci pencarian API"
+                    >
+                    <button type="submit" id="searchBtn" class="btn-search">
+                        🔍 Cari Data
+                    </button>
+                </div>
+
+                <!-- Rekomendasi Cepat (Chips) -->
+                <div id="chipsContainer" class="chips-container">
+                    <!-- Diisi secara dinamis via app.js -->
+                </div>
+            </form>
+
+            <!-- Container Hasil & Penanganan 3 State Wajib (Loading, Success, 404 Error) -->
+            <div id="stateContainer" class="state-box" aria-live="polite">
+                <!-- Diisi secara dinamis via app.js -->
+            </div>
+        </div>
+
+        <!-- ==================================================================
+             4. SPESIFIKASI TEKNIS & KEPATUHAN RUBRIK PRAKTIKUM
+             ================================================================== -->
+        <section class="spec-box">
+            <h4>📋 Pemenuhan Syarat Tugas Praktikum Pertemuan 06</h4>
+            <ul>
+                <li><strong>HTML, CSS, &amp; JavaScript Murni (Vanilla JS):</strong> Tidak menggunakan framework/library eksternal (React/Vue/Axios), murni native <code>fetch()</code> dan DOM API.</li>
+                <li><strong>Integrasi REST API Publik:</strong> Memanggil Open-Meteo API (Geocoding &amp; Open-Source Forecast) serta GitHub Users API (<code>https://api.github.com/users/{username}</code>).</li>
+                <li><strong>Kelengkapan Informasi:</strong> Menampilkan nama lokasi/avatar, koordinat/bio, suhu &amp; kelembapan / repositori publik, serta tautan profil/data resmi.</li>
+                <li><strong>Penanganan 3 Kondisi Wajib:</strong>
+                    <ol style="margin-left: 20px; margin-top: 4px;">
+                        <li><em>Loading State:</em> Menampilkan spinner animasi CSS dan indikator teks saat proses <code>fetch()</code> berlangsung.</li>
+                        <li><em>Success State:</em> Menampilkan kartu informasi rapi saat response berstatus <code>200 OK</code>.</li>
+                        <li><em>Not Found / 404 Error State:</em> Menampilkan pesan ramah pengguna jika kota tidak ada atau status <code>404 (User tidak ditemukan)</code>.</li>
+                    </ol>
+                </li>
+            </ul>
+        </section>
+
+    </main>
+
+    <!-- ======================================================================
+         5. FOOTER
+         ====================================================================== -->
+    <footer>
+        <p>&copy; 2026 Muhamad Dwi Cahyo &mdash; NIM: 202569040042 &bull; TI 3C</p>
+        <p style="margin-top: 4px; font-size: 0.82rem;">Pemrograman Web (Vue.js + Hono + Cloudflare D1) &bull; Praktikum 05</p>
+    </footer>
+
+    <!-- Script Vanilla JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

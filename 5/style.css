@@ -1,0 +1,693 @@
+/* ==========================================================================
+   PRAKTIKUM 05: PEMROGRAMAN WEB (VANILLA JAVASCRIPT FETCH API)
+   TOPIK: PENGGUNAAN WEB API PUBLIK (OPEN-METEO & GITHUB REST API)
+   MAHASISWA: MUHAMAD DWI CAHYO (NIM: 202569040042) — KELAS: TI 3C
+   ========================================================================== */
+
+:root {
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-hover: #1e40af;
+    --primary-light: #eff6ff;
+    --primary-subtle: #dbeafe;
+    --text-main: #0f172a;
+    --text-muted: #475569;
+    --text-subtle: #64748b;
+    --bg-page: #f8fafc;
+    --bg-card: #ffffff;
+    --border: #e2e8f0;
+    --border-focus: #3b82f6;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+    --success-bg: #f0fdf4;
+    --success-border: #bbf7d0;
+    --success-text: #166534;
+    --error-bg: #fef2f2;
+    --error-border: #fecaca;
+    --error-text: #991b1b;
+    --font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==========================================================================
+   HEADER & NAVBAR
+   ========================================================================== */
+header {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 30px 20px;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.header-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.header-brand h1 {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-brand p {
+    color: #bfdbfe;
+    font-size: 0.92rem;
+    margin-top: 4px;
+}
+
+.badge-student {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    text-align: right;
+    font-size: 0.85rem;
+}
+
+.badge-student .name {
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.badge-student .nim {
+    color: #dbeafe;
+    font-size: 0.8rem;
+}
+
+.nav-bar {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border);
+    padding: 10px 20px;
+}
+
+.nav-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+.back-link:hover {
+    background-color: var(--primary-light);
+}
+
+/* ==========================================================================
+   TAB MODE SWITCHER
+   ========================================================================== */
+.tabs-wrapper {
+    display: flex;
+    gap: 8px;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: var(--radius-md);
+}
+
+.tab-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tab-btn:hover {
+    color: var(--text-main);
+}
+
+.tab-btn.active {
+    background: #ffffff;
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================================================
+   MAIN CONTENT CONTAINER
+   ========================================================================== */
+main {
+    flex: 1;
+    max-width: 860px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 28px;
+    margin-bottom: 24px;
+}
+
+.section-head {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.section-head h2 {
+    font-size: 1.5rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+.section-head p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   SEARCH FORM
+   ========================================================================== */
+.search-form {
+    margin-bottom: 16px;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.search-input:focus {
+    border-color: var(--border-focus);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.btn-search {
+    background-color: var(--primary);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.btn-search:hover {
+    background-color: var(--primary-hover);
+}
+
+.btn-search:active {
+    transform: scale(0.98);
+}
+
+/* Quick recommendations / chips */
+.chips-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+}
+
+.chip-btn {
+    border: 1px solid var(--border);
+    background: #f8fafc;
+    color: var(--text-muted);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.chip-btn:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    border-color: var(--primary-subtle);
+}
+
+/* ==========================================================================
+   STATES: IDLE, LOADING, ERROR, SUCCESS
+   ========================================================================== */
+.state-box {
+    margin-top: 24px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+/* 1. Idle State */
+.state-idle {
+    text-align: center;
+    padding: 40px 20px;
+    background-color: #f8fafc;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+}
+
+.state-idle .idle-icon {
+    font-size: 2.8rem;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.state-idle h3 {
+    font-size: 1.15rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+}
+
+/* 2. Loading State */
+.state-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 20px;
+    background-color: #f8fafc;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+}
+
+.spinner {
+    width: 44px;
+    height: 44px;
+    border: 4px solid var(--primary-subtle);
+    border-top: 4px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 14px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.state-loading p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* 3. Error / 404 Not Found State */
+.state-error {
+    background-color: var(--error-bg);
+    border: 1px solid var(--error-border);
+    border-radius: var(--radius-md);
+    padding: 20px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    color: var(--error-text);
+}
+
+.error-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.error-content h4 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.error-content p {
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* 4. Success State (Weather Card & GitHub Profile Card) */
+.result-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Weather Result Styling */
+.weather-header {
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    color: #ffffff;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.location-info h3 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.location-info .coords {
+    font-size: 0.85rem;
+    color: #e0f2fe;
+    margin-top: 4px;
+}
+
+.weather-badge-main {
+    text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.weather-badge-main .icon {
+    font-size: 3rem;
+}
+
+.weather-badge-main .temp {
+    font-size: 2.4rem;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.weather-badge-main .condition {
+    font-size: 0.9rem;
+    color: #e0f2fe;
+}
+
+.weather-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    padding: 24px;
+    background: #ffffff;
+}
+
+.metric-item {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.metric-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.weather-footer {
+    padding: 12px 24px;
+    background: #f1f5f9;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.weather-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.weather-footer a:hover {
+    text-decoration: underline;
+}
+
+/* GitHub Profile Result Styling */
+.github-card {
+    padding: 28px;
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.github-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-light);
+    box-shadow: var(--shadow-md);
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.github-info {
+    flex: 1;
+}
+
+.github-name-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.github-name-row h3 {
+    font-size: 1.45rem;
+    color: var(--text-main);
+}
+
+.github-login {
+    color: var(--primary);
+    font-size: 0.92rem;
+    font-weight: 600;
+}
+
+.github-bio {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.github-stats {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.stat-chip {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    padding: 8px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+}
+
+.stat-chip strong {
+    color: var(--primary);
+    font-size: 1rem;
+}
+
+.btn-profile-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0f172a;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s;
+}
+
+.btn-profile-link:hover {
+    background: #334155;
+}
+
+/* ==========================================================================
+   SPEC EXPLANATION ACCORDION / NOTE
+   ========================================================================== */
+.spec-box {
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-top: 24px;
+    font-size: 0.9rem;
+}
+
+.spec-box h4 {
+    font-size: 0.98rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.spec-box ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.spec-box li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+}
+
+.spec-box li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+footer {
+    background: #ffffff;
+    border-top: 1px solid var(--border);
+    padding: 24px 20px;
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: auto;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (375px, 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .badge-student {
+        text-align: left;
+        width: 100%;
+    }
+    .github-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .github-name-row {
+        justify-content: center;
+    }
+    .github-stats {
+        justify-content: center;
+    }
+    .weather-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .weather-badge-main {
+        text-align: left;
+    }
+}
+
+@media (max-width: 500px) {
+    .input-group {
+        flex-direction: column;
+    }
+    .btn-search {
+        width: 100%;
+        justify-content: center;
+    }
+    .tabs-wrapper {
+        width: 100%;
+        justify-content: stretch;
+    }
+    .tab-btn {
+        flex: 1;
+        justify-content: center;
+    }
+}
