@@ -156,6 +156,7 @@
         .badge-p3 { background: #dcfce7; color: #166534; }
 .badge-p4 { background: #f3e8ff; color: #6b21a8; }
 .badge-p5 { background: #e0f2fe; color: #0369a1; }
+.badge-p6 { background: #e0e7ff; color: #4338ca; }
 
         .practicum-card h3 {
             font-size: 1.25rem;
@@ -330,7 +331,7 @@
         <div class="header-content">
             <span class="badge-academic">Repositori Pembelajaran &amp; Tugas Kuliah</span>
             <h1>Koleksi Praktikum Pemrograman Web</h1>
-            <p>Kumpulan kode tugas terstruktur mata kuliah Pemrograman Web dari Praktikum 1 hingga Praktikum 4.</p>
+            <p>Kumpulan kode tugas terstruktur mata kuliah Pemrograman Web dari Praktikum 1 hingga Praktikum 6.</p>
             <div class="meta-chips">
                 <span class="chip">👤 Muhamad Dwi Cahyo</span>
                 <span class="chip">🆔 NIM: 202569040042</span>
@@ -472,6 +473,35 @@
                     </a>
                     <a href="https://github.com/open-meteo/open-meteo" target="_blank" rel="noopener" class="btn btn-outline">
                         🌐 Dokumentasi Open-Meteo
+                    </a>
+                </div>
+            </div>
+
+            <!-- PRAKTIKUM 6 -->
+            <div class="practicum-card">
+                <div>
+                    <span class="card-badge badge-p6">Praktikum 06</span>
+                    <h3>Aplikasi Vue.js 3 &amp; Komponen Reaktif</h3>
+                    <p class="desc">
+                        Aplikasi katalog buku bacaan pribadi berbasis Vue.js 3 dan Vite dengan manajemen state reaktif (ref), two-way data binding (v-model), list rendering dinamis (v-for), filter kategori, serta rekapitulasi progres otomatis menggunakan computed property.
+                    </p>
+                    <ul class="features-list">
+                        <li>Inisialisasi Vite Template Vue (praktikum-vue)</li>
+                        <li>Komponen Reaktif BukuCatatan.vue</li>
+                        <li>Two-Way Binding Form (Input, Dropdown, Checkbox)</li>
+                        <li>List Rendering (v-for) &amp; Manajemen Data Buku</li>
+                        <li>Computed Property: Penghitung Buku Selesai Dibaca</li>
+                    </ul>
+                </div>
+                <div class="actions-group">
+                    <a href="6/pratikum6.html" class="btn btn-primary">
+                        ⚡ Buka Aplikasi Vue (P6)
+                    </a>
+                    <button type="button" class="btn btn-terminal" onclick="openConsolePreviewP6()">
+                        📄 Preview Komponen BukuCatatan.vue
+                    </button>
+                    <a href="https://vuejs.org/" target="_blank" rel="noopener" class="btn btn-outline">
+                        🌐 Dokumentasi Vue.js 3
                     </a>
                 </div>
             </div>
@@ -641,6 +671,75 @@
                 garisGanda,
                 "\n[Proses selesai dengan kode keluar 0]"
             ].join("\n");
+
+            document.getElementById('terminalOutput').textContent = output;
+            document.getElementById('codeModal').style.display = 'flex';
+        }
+
+        function openConsolePreviewP6() {
+            document.getElementById('modalTitle').textContent = "Kode Sumber: 6/praktikum-vue/src/components/BukuCatatan.vue";
+            const output = [
+                "// ==========================================================================",
+                "// Praktikum 06: Komponen BukuCatatan.vue (Vue 3 Composition API)",
+                "// Mahasiswa: Muhamad Dwi Cahyo (202569040042) - TI 3C",
+                "// ==========================================================================",
+                "",
+                "<script setup>",
+                "import { ref, computed } from 'vue'",
+                "",
+                "// 1. Two-way data binding state (v-model)",
+                "const judul = ref('')",
+                "const kategori = ref('Pemrograman & Web')",
+                "const statusSelesai = ref(false)",
+                "",
+                "// 2. Daftar buku reaktif",
+                "const daftarBuku = ref([ ... ])",
+                "",
+                "// 3. Computed Property (Wajib Praktikum 6):",
+                "// Menghitung jumlah buku yang sudah selesai dibaca",
+                "const jumlahSelesai = computed(() => {",
+                "  return daftarBuku.value.filter(buku => buku.selesai).length",
+                "})",
+                "",
+                "// Menghitung total keseluruhan buku",
+                "const totalBuku = computed(() => daftarBuku.value.length)",
+                "",
+                "// 4. Method Penambahan Data",
+                "function tambahBuku() {",
+                "  if (!judul.value.trim()) return",
+                "  daftarBuku.value.unshift({",
+                "    id: Date.now(),",
+                "    judul: judul.value.trim(),",
+                "    kategori: kategori.value,",
+                "    selesai: statusSelesai.value,",
+                "    tanggal: new Date().toISOString().split('T')[0]",
+                "  })",
+                "  judul.value = ''",
+                "  statusSelesai.value = false",
+                "}",
+                "<\\/script>",
+                "",
+                "<!-- Template: v-for List Rendering & Form Binding -->",
+                "<template>",
+                "  <form @submit.prevent=\"tambahBuku\">",
+                "    <input v-model=\"judul\" placeholder=\"Judul Buku\" />",
+                "    <select v-model=\"kategori\">...</select>",
+                "    <input type=\"checkbox\" v-model=\"statusSelesai\" />",
+                "    <button type=\"submit\">Tambah Buku</button>",
+                "  </form>",
+                "",
+                "  <!-- Computed Summary -->",
+                "  <p>Selesai Dibaca: {{ jumlahSelesai }} dari {{ totalBuku }} buku</p>",
+                "",
+                "  <!-- List Rendering v-for -->",
+                "  <ul>",
+                "    <li v-for=\"buku in daftarBuku\" :key=\"buku.id\">",
+                "      {{ buku.judul }} - {{ buku.kategori }}",
+                "      <span>{{ buku.selesai ? 'Selesai' : 'Belum' }}</span>",
+                "    </li>",
+                "  </ul>",
+                "</template>"
+            ].join("\\n");
 
             document.getElementById('terminalOutput').textContent = output;
             document.getElementById('codeModal').style.display = 'flex';
