@@ -35,6 +35,18 @@ pratikum-kuliah/
 │   ├── style.css               # Praktikum 5: Styling modern, spinner, & state badges
 │   ├── app.js                  # Praktikum 5: Vanilla JS Fetch API & 3 state handling
 │   └── index.html              # Praktikum 5: Redirect entrypoint helper
+├── 6/
+│   ├── praktikum-vue/          # Praktikum 6: Proyek Vite Vue 3 resmi tugas mandiri
+│   │   ├── src/
+│   │   │   ├── components/
+│   │   │   │   └── BukuCatatan.vue # Komponen input form, list v-for, & computed
+│   │   │   ├── App.vue         # Root component & identitas mahasiswa
+│   │   │   ├── main.js         # Entrypoint mount Vue
+│   │   │   └── style.css       # External modern styling responsif
+│   │   ├── package.json        # Dependensi & skrip Vite/Vue
+│   │   └── vite.config.js      # Konfigurasi Vite bundler
+│   ├── pratikum6.html          # Antarmuka web standalone Vue 3 (zero-build)
+│   └── index.html              # Redirect entrypoint helper ke pratikum6.html
 ├── tugas-es6.mjs               # Praktikum 4: Entrypoint root runner alias
 ├── index.html                  # Portal navigasi terpusat antarmuka web
 ├── package.json                # Skrip runner & metadata proyek
@@ -117,6 +129,41 @@ pratikum-kuliah/
   ```bash
   npx serve .
   # lalu buka http://localhost:3000/5/pratikum5.html
+  ```
+
+
+### 📌 Praktikum 6 — Aplikasi Web Reaktif dengan Vue.js 3 & Vite
+- **Topik**: Pengembangan aplikasi web modern berbasis komponen reaktif menggunakan Vue 3 (`<script setup>` Composition API) dan bundler Vite:
+  1. **Inisialisasi Proyek Vite**:
+     - Dibuat menggunakan template resmi: `npm create vite@latest praktikum-vue -- --template vue`.
+     - Local development server cepat dengan Hot Module Replacement (HMR).
+  2. **Komponen `BukuCatatan.vue`**:
+     - **Input Judul Buku**: Elemen `<input type="text">` terhubung dengan reaktivitas `v-model.trim`.
+     - **Kategori Buku**: Dropdown `<select>` dengan pilihan kategori literasi & keilmuan TI (`v-model`).
+     - **Status Baca**: Elemen `<input type="checkbox">` untuk menandai buku telah selesai atau belum dibaca.
+     - **Two-Way Data Binding**: Interaksi form langsung memperbarui state reaktif tanpa manipulasi DOM manual.
+  3. **List Rendering (`v-for`)**:
+     - Menampilkan seluruh katalog buku dari array reaktif `daftarBuku` dengan atribut unik `:key="buku.id"`.
+     - Aksi interaktif: toggle status baca (selesai / belum selesai) dan tombol hapus buku.
+  4. **Computed Properties (`computed()`)**:
+     - Menghitung jumlah buku yang berstatus selesai dibaca secara otomatis (`daftarBuku.filter(b => b.selesai).length`).
+     - Menghitung total buku keseluruhan, buku belum selesai, dan persentase progres membaca buku.
+     - Filter dinamis berdasarkan status baca dan kategori buku.
+  5. **Dua Mode Eksekusi Fleksibel**:
+     - **Mode Vite Dev Server (Official)**: Dijalankan langsung melalui Vite server.
+     - **Mode Standalone Web (`6/pratikum6.html`)**: Memanfaatkan Vue 3 CDN native yang dapat langsung diakses melalui portal web tanpa build step.
+- **Berkas**: `6/praktikum-vue/src/components/BukuCatatan.vue`, `6/praktikum-vue/src/App.vue`, `6/pratikum6.html`, `6/index.html`.
+- **Cara Menjalankan**:
+  ```bash
+  # 1. Menjalankan Vite Development Server (Praktikum 6)
+  npm run p6
+  # Atau masuk ke folder proyek
+  cd 6/praktikum-vue
+  npm run dev
+
+  # 2. Atau akses via Web Portal statis
+  npm start
+  # lalu buka http://localhost:3000/6/pratikum6.html
   ```
 
 ---
