@@ -9,7 +9,10 @@
     "p1:simple": "node 1/simple-pratikum1.js",
     "p4": "node 4/tugas-es6.mjs",
     "p4:root": "node tugas-es6.mjs",
-    "p5": "npx serve ."
+    "p5": "npx serve .",
+    "p6": "npm --prefix 6/praktikum-vue run dev",
+    "p6:build": "npm --prefix 6/praktikum-vue run build",
+    "p6:preview": "npm --prefix 6/praktikum-vue run preview"
   },
   "keywords": [
     "praktikum",
@@ -20,7 +23,11 @@
     "grid",
     "javascript",
     "fetch-api",
-    "open-meteo"
+    "open-meteo",
+    "vue",
+    "vue3",
+    "vite",
+    "computed-property"
   ],
   "author": "Muhamad Dwi Cahyo <202569040042>",
   "license": "MIT"
